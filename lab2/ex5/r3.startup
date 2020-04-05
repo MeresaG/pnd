@@ -1,0 +1,7 @@
+dpkg -i radvd_1%3a2.15-2_amd64.deb
+radvd -l /var/log/radvd.log
+ifup eth0
+ifup eth1
+
+ip -6 r a 2001:DB8:cafe:1::/64 via 2001:db8:cafe:3::1
+ip -6 r a 2001:DB8:cafe:2::/64 via 2001:db8:cafe:3::1

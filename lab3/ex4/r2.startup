@@ -1,0 +1,12 @@
+apt-get install -y libpcap-dev libssl-dev libnetfilter-queue-dev
+
+ip addr flush eth0
+ifdown eth0
+ifup eth0
+
+ip addr flush eth1
+ifdown eth1
+ifup eth1
+
+
+ip r add 2001:db8:fede:1::/64 dev eth0 via 2001:db8:fede:3::1

@@ -1,0 +1,2 @@
+ifup eth0
+#ip -6 addr add 2001:DB8:0:1::/64 eui-64 dev eth0

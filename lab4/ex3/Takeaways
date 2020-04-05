@@ -1,0 +1,43 @@
+first i just created the virtual ethernet.
+and set the routing.
+
+Your security policy is as follows:
+1.Your internal pcs may freely access any Web service, anywhere, on ports
+  80 and 443, but only if they initiate the connection themselves (i.e.
+  they are allowed to browse the Web). No one outside the internal lan 
+  can initiate connections to internal lan, on any port.
+iptables -P FORWARD DROP
+ip6tables -P FORWARD DROP
+iptables -A FORWARD -p tcp -m multiport -dports 80,443 -i eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -p tcp -m multiport -dports 80,443 -i eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -p tcp -m multiport -sports 80,443 -0 eth0 -m state --state ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -p tcp -m multiport -sports 80,443 -0 eth0 -m state --state ESTABLISHED -j ACCEPT
+
+
+2.Everyone, including the Internet, can access Web (both ports) and mail
+  in DMZ to access their main functions and for ping. However, no host in
+  DMZ can initiate connections anywhere else.
+
+iptables -A FORWARD -o eth1 -p tcp -m multiport --dports 80,443,25 -m state --state NEW,ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -o eth1 -p tcp -m multiport --dports 80,443,25 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -i eth1 -p tcp -m multiport --sports 80,443,25 -m state --state ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -i eth1 -p tcp -m multiport --sports 80,443,25 -m state --state ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -o eth1 -p icmp --icmp-type echo-request -m state --state NEW,ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -o eth1 -p icmpv6 --icmpv6-type echo-request -m state --state NEW,ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -i eth1 -p icmp --icmp-type echo-reply -m state --state ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -i eth1 -p icmpv6 --icmpv6-type echo-reply -m state --state ESTABLISHED -j ACCEPT
+
+
+3.Internal users can access the Web servers and mail servers in DMZ via SSH,
+  too. They can alsouse SSH to hosts on the Internet. However, hosts in
+  DMZ can only be contacted on port 22 by hosts in the internal lan.
+
+iptables -A FORWARD -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+ ip6tables -A FORWARD -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+ iptables -A FORWARD -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+ ip6tables -A FORWARD -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT

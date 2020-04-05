@@ -1,0 +1,8 @@
+#ip addr flush eth0
+ifup eth0
+#sysctl -w net.ipv6.conf.eth0.use_tempaddr=2
+#sysctl -w net.ipv6.conf.eth0.temp_prefered_lft=10
+#ip link set eth0 down
+#ip link set eth0 up
+
+sysctl -p

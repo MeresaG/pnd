@@ -1,0 +1,5 @@
+#echo 'resolvconf resolvconf/linkify-resolvconf boolean false' | debconf-set-selections
+#echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+#apt install -y dibbler-client
+
+dhclient -6 -S eth0

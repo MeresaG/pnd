@@ -1,0 +1,17 @@
+
+the bridge is already setted up and we can sniff. but we have set the veth.
+
+1. first we have to run the lab using lrestart
+2. then show availabe bridge using brctl show
+3. then on kathara we have to use: ip link add veth1 type veth
+4. ip link set veth0/1 up in the host
+5. brctl addif kt-... dev veth0
+6.ping from client pc1 to the server s1
+7.eavesdrop in the host using tcpdump -nt -i veth0 boooom
+
+on pc1: wget 192.168.100.100:80/ba.php --http-user=angelo --http-password=angsp
+
+on host/kathara:tcpdump -nt -i veth0 -U -w hello.pcap
+
+
+done.

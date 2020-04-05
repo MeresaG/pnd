@@ -1,0 +1,6 @@
+ip a flush eth0
+ip a a fe80::1/10 dev eth0
+ip r a 2001:DB8:0:1::/64 dev eth0
+ip a flush eth1
+ip a a fe80::1/10 dev eth1
+ip r a 2001:DB8:0:2::/64 dev eth1

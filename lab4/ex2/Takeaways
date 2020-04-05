@@ -1,0 +1,19 @@
+
+set up the topology like ex1.
+add routing in both the host and internal network.
+
+block any ping to our pc1.
+ip6tables -P INPUT DROP
+ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j drop
+
+
+block any services except http on s1
+ip6tables -P INPUT DROP
+ip6tables -A INPUT -p tcp ..
+
+protect the internal network from the external network
+configure r1 to only allow HTTP traffic to s1.
+ip6tables -P INPUT DROP
+ip6tables -A FORWARD -p TCP -d 2001:db8:cafe:1::80 -dport 80 -j ACCEPT
+ip6tables -A FORWARD -p TCP -s 2001:db8:cafe:1::80 -sport 80 -m state --state ESTABLISHED -j ACCEPT
+

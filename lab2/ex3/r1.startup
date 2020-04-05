@@ -1,0 +1,13 @@
+echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+apt install -y dibbler-server radvd
+
+ip a flush eth0
+
+ip a a 2001:DB8:FEDE:1::1/64 dev eth0
+ip a a fe80::1/64 dev eth0
+
+#tcpdump -i eth0 -U -w /hosthome/r1.pcap
+
+radvd -m logfile -l /var/log/radvd.log
+
+dibbler-server start

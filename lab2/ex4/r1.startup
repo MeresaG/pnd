@@ -1,0 +1,19 @@
+echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+apt install -y dibbler-client radvd
+
+ifup eth0
+ip addr flush eth0
+ip addr flush eth1
+ip addr flush eth2
+
+ip addr add fe80::1/10 dev eth0
+ip addr add fe80::1/10 dev eth1
+ip addr add fe80::1/10 dev eth2
+
+dibbler-client start
+tcpdump -i eth0 -U -w /hosthome/r1_eth0.pcap &
+tcpdump -i eth1 -U -w /hosthome/r1_eth1.pcap &
+tcpdump -i eth2 -U -w /hosthome/r1_eth2.pcap &
+
+chmod +x /etc/dibbler/client-notify.sh
+radvd -m logfile -l /var/log/radvd.log

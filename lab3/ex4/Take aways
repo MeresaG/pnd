@@ -1,0 +1,7 @@
+in a1
+	make all 
+	make install
+	redir6 interface/the same lan src-ip dest-ip old-router-link-local new-router-local-link mac-of-new-router hop linit 
+
+here if we sniff the trafic only the icmp request is passed through the attacker.
+there is no icmp reply.

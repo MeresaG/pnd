@@ -1,0 +1,5 @@
+ifup eth0
+ifup eth1
+
+ip -6 r a 2001:DB8:cafe:4::/64 via 2001:db8:cafe:3::2
+ip -6 r a 2001:DB8:cafe:1::/64 via 2001:db8:cafe:2::1

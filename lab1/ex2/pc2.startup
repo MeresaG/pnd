@@ -1,0 +1,5 @@
+ip addr flush eth0
+dhclient
+
+cat /etc/resolv.conf.dhclient-new.* > /etc/resolv.conf
+

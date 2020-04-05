@@ -1,0 +1,4 @@
+iface eth0 inet6 static
+	address 2001:DB8:0:1::101
+	netmask 64
+	gateway 2001:DB8:0:1::1

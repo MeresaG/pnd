@@ -1,0 +1,26 @@
+echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+apt install -y busybox udhcpd -o Dpkg::Options::="--force-confold" 
+
+ip addr add 192.168.10.17/29 dev eth0
+
+udhcpd -S
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+#while ping -q -c 5 192.168.10.17 >/dev/null ; do sleep 3; done ; echo "Server stopped responding"
+
+#iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+
+#first rule
+#iptables -A FORWARD -p icmp -i eth0 --icmp-type echo-request -j ACCEPT
+#iptables -A FORWARD -p icmp -i eth1 --icmp-type echo-reply -j ACCEPT
+#iptables -A FORWARD -j REJECT
+
+#second rule
+
+#iptables -A INPUT -i eth1 -p icmp --icmp-type echo-request -j ACCEPT
+#iptables -A INPUT -o eth1 -p icmp --icmp-type echo-reply -j ACCEPT
+#iptables -A INPUT -j REJECT
+
+#for the thrid rule, the thrid line in the above rules.
+nc -l ip port nc ip port
+

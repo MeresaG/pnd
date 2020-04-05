@@ -1,0 +1,6 @@
+in a1
+	make all 
+	make install
+	redir6 interface/the same lan src-ip dest-ip old-router-link-local new-router-local-link mac-of-new-router hop linit 
+
+here if we sniff the trafic both the request and reply.
