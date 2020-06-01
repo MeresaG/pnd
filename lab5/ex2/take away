@@ -1,0 +1,12 @@
+
+generate secret.key in r1 using 
+
+openvpn --genkey --secret secret.key and then share the key to r2
+then create r1.conf and r2.conf in both r1 and r2 respecively
+you can find the cofiguration of r1 and r2 in the /shared folder.
+
+then start
+
+openvpn --config r1.conf in r1
+openvpn --config r2.conf in r2
+

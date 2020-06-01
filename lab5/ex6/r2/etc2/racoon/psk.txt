@@ -1,0 +1,7 @@
+# IPv4 Adressen
+100.60.0.2        simple psk
+5.0.0.1                0xe10bd52b0529b54aac97db63462850f3
+# USER_FQDN
+ralf@spenneberg.net    This is a psk for an email address
+# FQDN
+www.spenneberg.net     This is a psk

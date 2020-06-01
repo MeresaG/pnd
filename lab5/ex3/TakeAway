@@ -1,0 +1,4 @@
+use ..
+setkey -f /etc/setkey.conf in both r1 and r2
+setkey -D
+setkey -DP in both r1 and r2
